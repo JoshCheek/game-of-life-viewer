@@ -1,4 +1,5 @@
 require 'set'
+require 'strscan'
 
 module Gol
   def self.tick(old_world)
@@ -68,7 +69,7 @@ module Gol
       elsif scanner.scan(/o/) # alive
         world << [x, y]
         x += 1
-      elsif match = scanner.scan(/^(\d+)([bo$])/)
+      elsif match = scanner.scan(/^\d+[bo$]/)
         times = match.to_i
         case match[/\D+/]
         when 'b' then x += times
@@ -82,8 +83,8 @@ module Gol
           y += times
         end
       elsif scanner.scan(/\$/)
-        y += 1
         x = 0
+        y += 1
       elsif scanner.scan(/!/)
         break
       else
