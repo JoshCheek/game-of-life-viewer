@@ -30,6 +30,8 @@ x = 13, y = 33, rule = B3/S23
 2o$2o3$3b2o$3b2o2$2o$2o10$b3o$bo$3o4$11b2o$11b2o2$8b2o$8b2o3$11b2o$11b2o!
 RLE
 
+# lotsa cray cray
+# https://vimeo.com/191955072
 game3 = Gol.parse <<RLE
 #N Parabolic sawtooth
 #O Dean Hickerson
@@ -89,8 +91,40 @@ x = 17, y = 7, rule = B3/S23
 7bo6bo2b$8bo6b2o$2b2o2b3o5b2ob$2ob2o12b$4o9bo3b$b2o9b2o3b$12bobo!
 RLE
 
+# A bunch of gliders emit a crab
+# http://conwaylife.com/forums/viewtopic.php?f=2&t=1533#p15253
+game5 = Gol.parse <<RLE
+x = 98, y = 100, rule = B3/S23
+86bo$84b2o$85b2o$71bobo$71b2o22bo$72bo20b2o$64bobo27b2o$64b2o$65bo6$
+73bobo$73b2o$74bo2$85bobo$85b2o$86bo2$73bobo$73b2o$74bo4$74bo$72b2o$
+73b2o13$62bo$61bo$61b3o19$22b2o$23b2o$22bo$9b3o$11bo55b2o$10bo56bobo$
+67bo$32bo27bo$32b2o25b2o$8b2o21bobo25bobo16b2o3b2o$7bobo7b3o57b2o4bobo
+$9bo9bo59bo3bo$18bo$81bo$80b2o$80bobo$5b2o$4bobo$6bo86bo$92b2o$3o89bob
+o$2bo$bo94b2o$95b2o$69b2o26bo$68b2o$70bo2$93b3o$93bo$5b2o87bo$6b2o$5bo
+$80b2o$80bobo$80bo!
+RLE
 
-game = game4 # change which one this is if you want to play different games
+# Makes me think of monkeys clapping cymbals and riding unicycles and shitting on each other
+# http://conwaylife.com/forums/viewtopic.php?f=2&t=1533#p15336
+game6 = Gol.parse <<RLE
+x = 103, y = 76, rule = B3/S23
+65bo2bob2obo2bo$65b4ob2ob4o$65bo2bob2obo2bo8$69b2o6b2o$69b2o6b2o2$60b
+2o$60b2o2$75b2o$75bobo$21b2o3b2o49bo$21b2o2bob3o47b2o$25bo4bo$21b4ob2o
+2bo$21bo2bobobob2o$24bobobobo$25b2obobo$29bo2$15b2o$3b3o10bo7b2o$2bo3b
+o3b3o3bobo5b2o$bo5bo2b3o4b2o63bo$80bobo$o7bobobo68b2o$o7bobobo2$bo5bo
+2b3o79b2o5b2o$2bo3bo3b3o79b2o5bo$3b3o21b2o17b2o49bobo$27bo19b2o48b2o$
+28b3o15bo46b2o$16bo8bo4bo62bobo$10b2o4b2o5b3o24bo43bo$9bo2bo2bobo4bo
+27b3o48bo$11b2o9b2o29bo47bo$7bo44b2o46b3o$6bob2o52b2o29b2o$6bo5b2o48bo
+29bobo$5b2o5b2o46bobo29bo3bo3b3o$54b2o4b2o31b4o4bo$53bo2bo44bo$54b2o
+45bo$42b2o49b4o4bo$42b2o48bo3bo3b3o$64bo27bobo$64b3o26b2o$18b3o37b2o7b
+o32b3o$10b2o4b2obo38bobo5b2o33bo$10b2o4b3o39bo42bo3$15bobo33b2o3b2o$
+14bob2o13b2o19bo3bo$15bo15bobo15b3o5b3o$16bo16bo15bo9bo16b2o$16b2o15b
+2o34b2o5bobo$18b2o49b2o7bo$18bob2o56b2o$14bo3bo2bo$15b2obobo44bo$17b3o
+44bobob2o$64bobobobo$63b2obobobo2bo$64bo2b2ob4o$22bo41bo4bo$23bo41b3ob
+o2b2o$21b3o43b2o3b2o!
+RLE
+
+game = game6 # change which one this is if you want to play different games
 
 x_offset = (cells_wide-game.x)/2
 y_offset = (cells_high-game.y)/2
@@ -115,6 +149,14 @@ Dir.mkdir save_dir unless Dir.exist? save_dir
   )
   world.each do |x, y|
     next if x < 0 || y < 0 || cells_wide <= x || cells_high <= y
+    # TODO when I'm more energized (this will make the board prettier, I think)
+    # if above/below/left/right are all the same as current
+    #   square in current
+    # else
+    #   if cell above and to the right are the same state,
+    #     draw a triangle topright of their colour
+    #   same for the other four corners
+    #   then draw a circleinthe middle for the cell's current colour
     image.rect(
       x*side_length,
       y*side_length,
