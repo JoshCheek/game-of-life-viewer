@@ -1,8 +1,16 @@
 require 'gol'
 
 RSpec.describe 'Gol' do
-  describe 'accepance' do
-    it 'does the blinker' do
+  describe 'tick' do
+    it 'returns a new world without affecting the previous world' do
+      old = Set[[0, 0]]
+      new = Gol.tick old
+      expect(old).to eq Set[[0, 0]]
+      expect(new).to_not eq Set[[0, 0]]
+    end
+
+    specify 'each cell in the new world lives based on the rules, as applied to the state of the previous world' do
+      # the blinker
       horizontal = Set[[0, 1], [1, 1], [2, 1]]
       vertical   = Set[[1, 0], [1, 1], [1, 2]]
       expect(Gol.tick horizontal).to eq vertical
@@ -20,16 +28,5 @@ RSpec.describe 'Gol' do
       it 'comes to life if it has 3 neighbours'
       it 'stays dead otherwise'
     end
-  end
-
-  describe 'tick' do
-    it 'returns a new world without affecting the previous world' do
-      old = Set[[0, 0]]
-      new = Gol.tick old
-      expect(old).to eq Set[[0, 0]]
-      expect(new).to_not eq Set[[0, 0]]
-    end
-
-    specify 'each cell in the new world lives based on the rules, as applied to the state of the previous world'
   end
 end
