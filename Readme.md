@@ -3,6 +3,26 @@ Game of Life -- visual
 
 Mostly just an excuse to play with image generation.
 
+
+How to play with it
+-------------------
+
+Assuming you have Ruby, install ChunkyPNG
+
+```Sh
+$ gem install chunky_png
+```
+
+Then run the binary
+
+```sh
+$ bin/gol
+```
+
+As of right now, you have to edit the binary to change its settings.
+This probably won't change, b/c who gives a shit?
+
+
 Example of creating and printing a PNG in iTerm2
 ------------------------------------------------
 
