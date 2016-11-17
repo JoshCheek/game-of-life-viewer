@@ -23,7 +23,13 @@ RSpec.describe 'Gol' do
   end
 
   describe 'tick' do
-    it 'returns a new world without affecting the previous world'
+    it 'returns a new world without affecting the previous world' do
+      old = Set[[0, 0]]
+      new = Gol.tick old
+      expect(old).to eq Set[[0, 0]]
+      expect(new).to_not eq Set[[0, 0]]
+    end
+
     specify 'each cell in the new world lives based on the rules, as applied to the state of the previous world'
   end
 end
