@@ -18,7 +18,7 @@ RSpec.describe 'Gol' do
     end
   end
 
-  describe 'rules', t:true do
+  describe 'rules' do
     it 'considers neighbours to be any of the cells directly adjacent horizontally, vertically, and diagonally' do
       expectations = {
         [0, 0] => 3, [1, 0] => 5, [2, 0] => 3,
