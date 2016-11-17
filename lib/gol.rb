@@ -15,6 +15,10 @@ module Gol
   end
 
   def self.lives?(is_alive, num_neighbours)
-    is_alive && (num_neighbours == 2 || num_neighbours == 3)
+    if is_alive
+      num_neighbours == 2 || num_neighbours == 3
+    else
+      num_neighbours == 3
+    end
   end
 end

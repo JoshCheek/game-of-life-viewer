@@ -48,8 +48,19 @@ RSpec.describe 'Gol' do
     end
 
     context 'when a cell is dead' do
-      it 'comes to life if it has 3 neighbours'
-      it 'stays dead otherwise'
+      it 'comes to life if it has 3 neighbours' do
+        expect(Gol.lives? false, 3).to eq true
+      end
+      it 'stays dead otherwise' do
+        expect(Gol.lives? false, 0).to eq false
+        expect(Gol.lives? false, 1).to eq false
+        expect(Gol.lives? false, 2).to eq false
+        expect(Gol.lives? false, 4).to eq false
+        expect(Gol.lives? false, 5).to eq false
+        expect(Gol.lives? false, 6).to eq false
+        expect(Gol.lives? false, 7).to eq false
+        expect(Gol.lives? false, 8).to eq false
+      end
     end
   end
 end
