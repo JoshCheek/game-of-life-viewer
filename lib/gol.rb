@@ -13,4 +13,8 @@ module Gol
       [x-1, y+1], [x, y+1], [x+1, y+1],
     ].count(&world.method(:include?))
   end
+
+  def self.lives?(is_alive, num_neighbours)
+    is_alive && (num_neighbours == 2 || num_neighbours == 3)
+  end
 end

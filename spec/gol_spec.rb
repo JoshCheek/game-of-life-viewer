@@ -18,8 +18,8 @@ RSpec.describe 'Gol' do
     end
   end
 
-  describe 'rules' do
-    it 'considers neighbours to be any of the cells directly adjacent horizontally, vertically, and diagonally', t:true do
+  describe 'rules', t:true do
+    it 'considers neighbours to be any of the cells directly adjacent horizontally, vertically, and diagonally' do
       expectations = {
         [0, 0] => 3, [1, 0] => 5, [2, 0] => 3,
         [0, 1] => 5, [1, 1] => 8, [2, 1] => 5,
@@ -32,13 +32,19 @@ RSpec.describe 'Gol' do
     end
 
     context 'when a cell is alive' do
-      xit 'lives if it has 2 or 3 neighbours' do
-        two_nbrs = Set[[0, 0], [0, 1], [1, 0]]
-        expect(Gol.lives? [0, 0], two_nbrs).to eq true
-        two_nbrs = Set[[0, 0], [0, 1], [1, 0], []]
-        expect(Gol.lives? [0, 0], two_nbrs).to eq true
+      it 'lives if it has 2 or 3 neighbours' do
+        expect(Gol.lives? true, 2).to eq true
+        expect(Gol.lives? true, 3).to eq true
       end
-      it 'dies otherwise'
+      it 'dies otherwise' do
+        expect(Gol.lives? true, 0).to eq false
+        expect(Gol.lives? true, 1).to eq false
+        expect(Gol.lives? true, 4).to eq false
+        expect(Gol.lives? true, 5).to eq false
+        expect(Gol.lives? true, 6).to eq false
+        expect(Gol.lives? true, 7).to eq false
+        expect(Gol.lives? true, 8).to eq false
+      end
     end
 
     context 'when a cell is dead' do
