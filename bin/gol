@@ -14,9 +14,8 @@ duration = 0.2
 require 'chunky_png'
 dead_colour  = ChunkyPNG::Color::WHITE
 alive_colour = ChunkyPNG::Color::BLACK
-cell_width   = 10 # px
-cell_height  = 10
-cells_wide   = 70
+side_length  = 10 # px
+cells_wide   = 130
 cells_high   = 70
 def self.b64(str)
   [str].pack('m0')
@@ -25,24 +24,24 @@ end
 loop do
   # construct the image
   image = ChunkyPNG::Image.new(
-    cell_width*cells_wide,
-    cell_height*cells_high,
+    side_length*cells_wide,
+    side_length*cells_high,
     dead_colour
   )
   world.each do |x, y|
     next if x < 0 || y < 0 || cells_wide <= x || cells_high <= y
     image.rect(
-      x*cell_width,
-      y*cell_height,
-      x*cell_width+cell_width,
-      y*cell_height+cell_height,
+      x*side_length,
+      y*side_length,
+      x*side_length+side_length,
+      y*side_length+side_length,
       alive_colour,
       alive_colour
     )
   end
 
   # print the image
-  png = image.to_blob
+  png = image.to_blob(fast_rgba: true) # we can use the fast version if we don't have transparency
   $stdout.print "\e[H\e[2J" # go to top-left and clear screen
   $stdout.print(
     "\e]1337;",
