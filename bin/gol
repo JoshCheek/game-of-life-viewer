@@ -1,0 +1,58 @@
+#!/usr/bin/env ruby
+
+# hide cursor until program ends
+print "\e[?25l"
+at_exit { print "\e[?25h" }
+
+# setup game of life
+$LOAD_PATH.unshift File.expand_path('../lib', __dir__)
+require 'gol'
+world = Set[[5, 5], [6, 5], [7, 5]] # blinker
+duration = 0.2
+
+# set up image processing
+require 'chunky_png'
+dead_colour  = ChunkyPNG::Color::WHITE
+alive_colour = ChunkyPNG::Color::BLACK
+cell_width   = 10 # px
+cell_height  = 10
+cells_wide   = 70
+cells_high   = 70
+def self.b64(str)
+  [str].pack('m0')
+end
+
+loop do
+  # construct the image
+  image = ChunkyPNG::Image.new(
+    cell_width*cells_wide,
+    cell_height*cells_high,
+    dead_colour
+  )
+  world.each do |x, y|
+    next if x < 0 || y < 0 || cells_wide <= x || cells_high <= y
+    image.rect(
+      x*cell_width,
+      y*cell_height,
+      x*cell_width+cell_width,
+      y*cell_height+cell_height,
+      alive_colour,
+      alive_colour
+    )
+  end
+
+  # print the image
+  png = image.to_blob
+  $stdout.print "\e[H\e[2J" # go to top-left and clear screen
+  $stdout.print(
+    "\e]1337;",
+    "File=#{b64 'game-of-life'};",
+    "size=#{png.bytesize};",
+    "inline=1:#{b64 png}",
+    "\a\n",
+  )
+
+  world = Gol.tick world
+  sleep duration
+end
+
