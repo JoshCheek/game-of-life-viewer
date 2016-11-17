@@ -64,3 +64,24 @@ RSpec.describe 'Gol' do
     end
   end
 end
+
+RSpec.describe 'Parsing the RLE format (Run Length Encoded)', t:true do
+  it 'parses an example from the webdite' do
+    rle = "x = 9, y = 8, rule = B3/S23\n" +
+          "3o3b3o$obo3bobo$3o3b3o4$b2o3b2o$b2o3b2o!"
+    expect(Gol.parse rle).to eq Gol::Game.new(
+      x: 9,
+      y: 8,
+      world: Set[
+        [0, 0], [1, 0], [2, 0],                         [6, 0], [7, 0], [8, 0],
+        [0, 1],         [2, 1],                         [6, 1],         [8, 1],
+        [0, 2], [1, 2], [2, 2],                         [6, 2], [7, 2], [8, 2],
+
+
+
+                [1, 6], [2, 6],                         [6, 6], [7, 6],
+                [1, 7], [2, 7],                         [6, 7], [7, 7],
+      ]
+    )
+  end
+end
