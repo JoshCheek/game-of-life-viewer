@@ -51,8 +51,8 @@ module Gol
   # You can get examples at this forum, eg I found one to test against from here:
   # http://www.conwaylife.com/forums/viewtopic.php?f=7&t=2036
   def self.parse(rle)
-    headers, *rest = rle.lines
-    rest.length == 1 or raise "I haven't looked into what multiple lines means yet!"
+    lines = rle.lines.reject { |l| l[0] == '#' }.map(&:chomp)
+    headers, *rest = lines
     args = {}
     headers.split(",").map do |header|
       key, value = header.split("=").map(&:strip)
