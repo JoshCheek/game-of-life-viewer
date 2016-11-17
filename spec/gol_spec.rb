@@ -2,7 +2,12 @@ require 'gol'
 
 RSpec.describe 'Gol' do
   describe 'accepance' do
-    it 'does the blinker'
+    it 'does the blinker' do
+      horizontal = Set[[0, 1], [1, 1], [2, 1]]
+      vertical   = Set[[1, 0], [1, 1], [1, 2]]
+      expect(Gol.tick horizontal).to eq vertical
+      expect(Gol.tick vertical).to eq horizontal
+    end
   end
 
   describe 'rules' do
