@@ -124,6 +124,9 @@ o32b3o$10b2o4b2obo38bobo5b2o33bo$10b2o4b3o39bo42bo3$15bobo33b2o3b2o$
 o2b2o$21b3o43b2o3b2o!
 RLE
 
+# Third one in here is amazing, as well, but really large
+# http://www.conwaylife.com/forums/viewtopic.php?f=2&t=1512&p=15224#p15208
+
 game = game6 # change which one this is if you want to play different games
 
 x_offset = (cells_wide-game.x)/2
@@ -174,7 +177,7 @@ Dir.mkdir save_dir unless Dir.exist? save_dir
     puts "#{filename}\t#{i}/#{num_iterations}"
   end
 
-  # print the image
+  # print the image (this is an iTerm2 feature)
   if should_print
     png = image.to_blob(fast_rgba: true) # we can use the fast version if we don't have transparency
     $stdout.print "\e[H\e[2J" # go to top-left and clear screen
